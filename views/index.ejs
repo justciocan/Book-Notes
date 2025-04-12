@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notes Book</title>
-  </head>
-  <body></body>
-</html>
+<%- include('partials/header.ejs'); -%>
+
+<main
+  class="flex-grow-1 d-flex justify-content-center align-items-center text-center"
+>
+  <div>
+    <h1 class="display-5 fw-bold text-body-emphasis">Welcome to Book Notes</h1>
+    <div class="col-lg-8 mx-auto">
+      <p class="lead mb-4">
+        This is a web app where I am covering some books I read over the time
+        and my takes on them. This page might contain some spoilers so be
+        warned.
+      </p>
+      <p class="lead mb-4">Start by searching for the book title or ISBN</p>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer.ejs'); -%>
