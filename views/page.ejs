@@ -1,42 +1,30 @@
 <%- include('partials/header.ejs'); -%>
 
-<section
+<main
   class="flex-grow-1 d-flex justify-content-center align-items-center text-center"
 >
   <div class="container">
+    <form class="item" action="/add" method="post">
     <div class="card">
-      <div class="card-header">Book Review</div>
+      <div class="card-header">Book to Review</div>
       <div class="card-body">
+        <input type="hidden" name="title" value="<%= title %>" />
+        <input type="hidden" name="author" value="<%= author %>" />
+        <input type="hidden" name="isbn" value="<%= isbn %>" />
+        <input type="hidden" name="cover" value="<%= cover %>" />
         <h5 class="card-title"><%= title %></h5>
+        <p><%= author %></p>
+        <p>ISBN: <%= isbn %> </p>
         <img
           src= <%= cover %>
           class="book-cover"
         />
-        <p class="card-text"><%= review %></p>
-
-        <form class="edit" id="review" action="/page" method="post">
-          <input type="hidden" name="updatedItemId" value="<%= review %>" />
-          <input
-            id="input<%=review%>"
-            type="text"
-            name="updatedItemTitle"
-            value="<%= review %>"
-            autocomplete="off"
-            autofocus="true"
-            hidden="true"
-          />
-          </form>
-        <a class="btn btn-primary" onclick="handler()" >Edit Review</a>
-        <a href="#" class="btn btn-success">Add Book</a>
+        <hr>
+        <button id="addButton" type="submit" class="btn btn-primary" >Add Book</button>
       </div>
     </div>
+  </form>
   </div>
-  <script>
-    function handler() {
-      //document.getElementById(id).setAttribute("hidden", false);
-      console.log("Pressed");
-    }
-  </script>
-</section>
+</main>
 
 <%- include('partials/footer.ejs'); -%>

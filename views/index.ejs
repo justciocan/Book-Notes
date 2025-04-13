@@ -11,10 +11,34 @@
         and my takes on them. This page might contain some spoilers so be
         warned.
       </p>
-      <p class="lead mb-4">
-        To add a new book review search the book by ISBN and continue from
-        there.
-      </p>
+      
+      <% if (locals.bookList) { %>
+        <% bookList.forEach(book => { %>
+          <div class="container">
+            <div class="card">
+              <div class="card-header">ISBN: <%= book.isbn %></div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= book.title %></h5>
+                  <p> <%= book.author %> </p>
+                  <img
+                  src= <%= book.cover %>
+                  class="book-cover"
+                  />
+                  <hr>
+                  <p id="reviewText" class="card-text" contenteditable="false"><%= book.review %></p>
+                  <div class="d-flex justify-content-center gap-2 mt-3">
+                    <button id="editButton" class="btn btn-primary">Edit Review</button>
+                  <form action="/delete" method="POST" onsubmit="return confirm('Delete this book?');">
+                    <input type="hidden" name="isbn" value="<%= book.isbn %>">
+                    <button type="submit" class="btn btn-danger">Delete Book</button>
+                  </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <hr>
+        <% }); %>
+      <% }; %> 
     </div>
   </div>
 </main>
