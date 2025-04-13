@@ -43,11 +43,12 @@
             <li><a href="/" class="btn px-2 text-primary btn-outline-light">Home</a></li>
           </ul>
           
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="/page" method="post">
             <input
               type="search"
+              name="newBook"
               class="form-control form-control-dark text-bg-white"
-              placeholder="Search for the book..."
+              placeholder="Search by ISBN"
               aria-label="Search"
             />
           </form>
