@@ -52,6 +52,19 @@
               aria-label="Search"
             />
           </form>
+          <div class="dropdown px-2">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"  >
+              Sort List
+            </button>
+            
+            <ul class="dropdown-menu" data-bs-theme="dark">
+              <form role="sort", action="/newest" method="get"><li><button class="dropdown-item">Newest</button></li></form>
+              <form role="sort", action="/oldest" method="get"><li><button class="dropdown-item">Oldest</button></li></form>
+              <form role="sort", action="/az" method="get"><li><button class="dropdown-item">A-Z</button></li></form>
+              <form role="sort", action="/za" method="get"><li><button class="dropdown-item">Z-A</button></li></form>
+            </ul>
+          </form>
+          </div>
           <button type="button" id="theme-toggle" class=" btn btn-outline-light">Light Theme</button>
         </div>
       </div>

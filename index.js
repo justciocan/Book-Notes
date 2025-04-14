@@ -15,6 +15,7 @@ const db = new pg.Client({
 
 db.connect();
 
+let sort ="id ASC";
 let books = [
   {
     id: 1,
@@ -32,13 +33,50 @@ app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM books ORDER BY id ASC");
+    const result = await db.query(`SELECT * FROM books ORDER BY ${sort}`);
     books = result.rows;
   } catch (error) {
     console.log(error);
   }
   res.render("index.ejs", { bookList: books });
 });
+
+app.get("/newest", async (req, res) => {
+  try {
+    sort = "id DESC";
+  res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/oldest", async (req, res) => {
+  try {
+    sort = "id ASC";
+  res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/az", async (req, res) => {
+  try {
+    sort = "title ASC";
+  res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/za", async (req, res) => {
+  try {
+    sort = "title DESC";
+  res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 app.post("/page", async (req, res) => {
   const searchedBook = req.body.newBook;
