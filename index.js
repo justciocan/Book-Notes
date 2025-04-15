@@ -15,7 +15,7 @@ const db = new pg.Client({
 
 db.connect();
 
-let sort ="id ASC";
+let sort = "id ASC";
 let books = [
   {
     id: 1,
@@ -32,51 +32,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
-  try {
-    const result = await db.query(`SELECT * FROM books ORDER BY ${sort}`);
-    books = result.rows;
-  } catch (error) {
-    console.log(error);
-  }
-  res.render("index.ejs", { bookList: books });
-});
+  const sortMap = {
+    newest: "id DESC",
+    oldest: "id ASC",
+    az: "title ASC",
+    za: "title DESC",
+  };
 
-app.get("/newest", async (req, res) => {
-  try {
-    sort = "id DESC";
-  res.redirect("/");
-  } catch (error) {
-    console.log(error);
-  }
-});
+  const sortKey = req.query.sort || "newest";
+  const sortClause = sortMap[sortKey] || "id DESC";
 
-app.get("/oldest", async (req, res) => {
   try {
-    sort = "id ASC";
-  res.redirect("/");
+    const result = await db.query(`SELECT * FROM books ORDER BY ${sortClause}`);
+    res.render("index.ejs", { bookList: result.rows, sortKey: sortKey });
   } catch (error) {
-    console.log(error);
+    console.error("DB Error:", error);
+    res.send("Something went wrong.");
   }
 });
-
-app.get("/az", async (req, res) => {
-  try {
-    sort = "title ASC";
-  res.redirect("/");
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-app.get("/za", async (req, res) => {
-  try {
-    sort = "title DESC";
-  res.redirect("/");
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 
 app.post("/page", async (req, res) => {
   const searchedBook = req.body.newBook;
@@ -115,6 +88,18 @@ app.post("/add", async (req, res) => {
   res.redirect("/");
 });
 
+app.post("/edit", async (req, res) => {
+  try {
+    await db.query("UPDATE books SET review=$1 WHERE id=$2", [
+      req.body.updateReview,
+      req.body.updateId,
+    ]);
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.post("/delete", async (req, res) => {
   try {
     const deleteISBN = req.body.isbn;
@@ -123,7 +108,7 @@ app.post("/delete", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-})
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

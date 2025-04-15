@@ -39,11 +39,20 @@
           <ul
             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
           >
-          <span class="fs-4 px-3">Book Notes</span>
-            <li><a href="/" class="btn px-2 text-primary btn-outline-light">Home</a></li>
+            <span class="fs-4 px-3">Book Notes</span>
+            <li>
+              <a href="/" class="btn px-2 text-primary btn-outline-light"
+                >Home</a
+              >
+            </li>
           </ul>
-          
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="/page" method="post">
+
+          <form
+            class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+            role="search"
+            action="/page"
+            method="post"
+          >
             <input
               type="search"
               name="newBook"
@@ -53,19 +62,25 @@
             />
           </form>
           <div class="dropdown px-2">
-            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"  >
+            <button
+              class="btn btn-outline-light dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               Sort List
             </button>
-            
+
             <ul class="dropdown-menu" data-bs-theme="dark">
-              <form role="sort", action="/newest" method="get"><li><button class="dropdown-item">Newest</button></li></form>
-              <form role="sort", action="/oldest" method="get"><li><button class="dropdown-item">Oldest</button></li></form>
-              <form role="sort", action="/az" method="get"><li><button class="dropdown-item">A-Z</button></li></form>
-              <form role="sort", action="/za" method="get"><li><button class="dropdown-item">Z-A</button></li></form>
+              <li><a href="/?sort=newest" class="dropdown-item">Newest</a></li>
+              <li><a href="/?sort=oldest" class="dropdown-item">Oldest</a></li>
+              <li><a href="/?sort=az" class="dropdown-item">A-Z</a></li>
+              <li><a href="/?sort=za" class="dropdown-item">Z-A</a></li>
             </ul>
-          </form>
           </div>
-          <button type="button" id="theme-toggle" class=" btn btn-outline-light">Light Theme</button>
+          <button type="button" id="theme-toggle" class="btn btn-outline-light">
+            Light Theme
+          </button>
         </div>
       </div>
     </header>
@@ -77,4 +92,5 @@
   ></script>
   <script src="/js/theme.js"></script>
 
-  <body class="d-flex flex-column min-vh-100">
+  <body class="d-flex flex-column min-vh-100"></body>
+</html>

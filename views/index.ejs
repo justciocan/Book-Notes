@@ -1,8 +1,6 @@
 <%- include('partials/header.ejs'); -%>
 
-<main
-  class="flex-grow-1 d-flex justify-content-center align-items-center text-center"
->
+<main class="flex-grow-1 d-flex justify-content-center align-items-center text-center">
   <div>
     <h1 class="display-5 fw-bold text-body-emphasis">Welcome to Book Notes</h1>
     <div class="col-lg-8 mx-auto">
@@ -11,36 +9,95 @@
         and my takes on them. This page might contain some spoilers so be
         warned.
       </p>
-      
+
       <% if (locals.bookList) { %>
         <% bookList.forEach(book => { %>
-          <div class="container">
+          <div class="container mb-4">
             <div class="card">
               <div class="card-header">ISBN: <%= book.isbn %></div>
-                <div class="card-body">
-                  <h5 class="card-title"><%= book.title %></h5>
-                  <p> <%= book.author %> </p>
-                  <img
-                  src= <%= book.cover %>
-                  class="book-cover"
-                  />
-                  <hr>
-                  <p id="reviewText" class="card-text" contenteditable="false"><%= book.review %></p>
-                  <div class="d-flex justify-content-center gap-2 mt-3">
-                    <button id="editButton" class="btn btn-primary">Edit Review</button>
-                  <form action="/delete" method="POST" onsubmit="return confirm('Delete this book?');">
-                    <input type="hidden" name="isbn" value="<%= book.isbn %>">
-                    <button type="submit" class="btn btn-danger">Delete Book</button>
-                  </form>
+              <div class="card-body">
+                <h5 class="card-title"><%= book.title %></h5>
+                <p><%= book.author %></p>
+                <img src="<%= book.cover %>" class="book-cover" />
+                <hr />
+
+                <!-- REVIEW FORM -->
+                <form class="edit w-100" action="/edit" method="post">
+                  <input type="hidden" name="updateId" value="<%= book.id %>">
+
+                  <!-- Review Text -->
+                  <p id="reviewText<%= book.id %>" class="card-text"><%= book.review %></p>
+
+                  <!-- Textarea (hidden initially) -->
+                  <textarea
+                    id="input<%= book.id %>"
+                    name="updateReview"
+                    class="form-control mt-2"
+                    rows="1"
+                    hidden
+                    oninput="autoResize(this)"
+                    style="overflow:hidden;resize:none;"
+                  ><%= book.review %></textarea>
+
+                  <!-- Button Row -->
+                  <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+                    <button
+                      id="editButton<%= book.id %>"
+                      class="btn btn-primary"
+                      type="button"
+                      onclick="handler('<%= book.id %>')"
+                    >
+                      Edit Review
+                    </button>
+
+                    <button
+                      id="saveButton<%= book.id %>"
+                      class="btn btn-success"
+                      type="submit"
+                      hidden
+                    >
+                      Save Review
+                    </button>
+
+                    <form action="/delete" method="POST" onsubmit="return confirm('Delete this book?');" class="m-0">
+                      <input type="hidden" name="isbn" value="<%= book.isbn %>">
+                      <button
+                        id="deleteButton<%= book.id %>"
+                        type="submit"
+                        class="btn btn-danger"
+                      >
+                        Delete Book
+                      </button>
+                    </form>
                   </div>
-                </div>
+                </form>
+              </div>
             </div>
           </div>
-          <hr>
         <% }); %>
-      <% }; %> 
+      <% }; %>
     </div>
   </div>
+
+  <script>
+    function handler(id) {
+      document.getElementById("reviewText" + id).setAttribute("hidden", true);
+      const input = document.getElementById("input" + id);
+      input.removeAttribute("hidden");
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+      autoResize(input);
+
+      document.getElementById("editButton" + id).setAttribute("hidden", true);
+      document.getElementById("deleteButton" + id).setAttribute("hidden", true);
+      document.getElementById("saveButton" + id).removeAttribute("hidden");
+    }
+
+    function autoResize(textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+    }
+  </script>
 </main>
 
 <%- include('partials/footer.ejs'); -%>
