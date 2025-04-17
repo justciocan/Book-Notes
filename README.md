@@ -26,14 +26,6 @@ Book Notes is a full-stack web app built as a capstone project where users can s
 - PostgreSQL integration
 - Git feature branching and merging with `--no-ff` strategy
 
-## 🛣️ Roadmap
-
-- ✅ Add review editing (done)
-- ❌ Book cover auto-fetch by ISBN
-- ❌ Tagging or categorization
-- ❌ Export to markdown/PDF
-- ❌ Deploy to Render or Railway
-
 ## 💻 Getting Started
 
 1. **Clone the repo**
